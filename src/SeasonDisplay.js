@@ -1,8 +1,12 @@
 import React from 'react';
 
-const SeasonDisplay = () => {
+const SeasonDisplay = props => {
     return (
-        <div>Season Display</div>
+        <div>
+            <div>latitude: {props.latitude}</div>
+            <div>longitude: {props.longitude}</div>
+           
+        </div>
     );
 }
 export default SeasonDisplay;
