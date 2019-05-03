@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay'
+import Spinner from './Spinner';
+
 class App extends React.Component {
     // constructor(props) {
     //     super(props);
@@ -14,24 +16,33 @@ class App extends React.Component {
                 this.setState({errorMessage: err.message})
         );
     }
+
+    renderContent() {
+        if (this.state.errorMessage &&!this.state.latitude ){ 
+            return <div> Error: {this.state.errorMessage} </div>
+        }
+
+        if(!this.state.errorMessage && this.state.latitude ){
+            return (
+            <SeasonDisplay latitude={this.state.latitude} longitude= {this.state.longitude}/>
+            );
+        }
+
+        return (
+            <Spinner />
+            
+        );
+      
+    }
+
     render() {
       
-        
-            if (this.state.errorMessage &&!this.state.latitude ){ 
-                return <div> Error: {this.state.errorMessage} </div>
-            }
-
-            if(!this.state.errorMessage && this.state.latitude ){
-                return (
-                <SeasonDisplay latitude={this.state.latitude} longitude= {this.state.longitude}/>
-                );
-            }
-
-            return (
-                <div>Loading...</div>
-                
-            );
-          
+        return (
+            <div className="border red">
+            {this.renderContent()}
+            </div>
+        );
+            
         
     }
 }
